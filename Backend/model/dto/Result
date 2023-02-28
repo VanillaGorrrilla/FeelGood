@@ -1,0 +1,42 @@
+package com.vanillagorrrilla.feelgood.model.dto;
+
+public class Result {
+
+	private String illness_name;
+    private String illness_description;
+    private int severity;
+    private int total_strength;
+    
+
+    public String getIllness_name() {
+		return illness_name;
+	}
+	public void setIllness_name(String illness_name) {
+		this.illness_name = illness_name;
+	}
+	public String getIllness_description() {
+		return illness_description;
+	}
+	public void setIllness_description(String illness_description) {
+		this.illness_description = illness_description;
+	}
+	public int getSeverity() {
+		return severity;
+	}
+	public void setSeverity(int severity) {
+		this.severity = severity;
+	}
+	public int getTotal_strength() {
+		return total_strength;
+	}
+	public void setTotal_strength(int total_strength) {
+		this.total_strength = total_strength;
+	}
+	@Override
+	public String toString() {
+		return "Result [illness_name=" + illness_name + ", illness_description=" + illness_description + ", severity="
+				+ severity + ", total_strength=" + total_strength + "]";
+	}
+	
+	
+}
