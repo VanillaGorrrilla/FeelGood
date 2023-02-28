@@ -1,0 +1,57 @@
+package com.vanillagorrrilla.feelgood.repository;
+
+import com.vanillagorrrilla.feelgood.mapper.ResultMapper;
+import com.vanillagorrrilla.feelgood.model.dto.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class ResultRepository {
+
+
+    JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public ResultRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public ResponseEntity<?> getResult(List<String> symptoms) {
+        try {
+            StringBuilder sql1 = new StringBuilder("WITH selected_symptoms AS (SELECT symptom_id FROM symptoms WHERE symptom_name IN (");
+            for (int i = 0; i < symptoms.size(); i++) {
+                sql1.append("'").append(symptoms.get(i)).append("'");
+                if (i != symptoms.size() - 1) {
+                    sql1.append(",");
+                }
+            }
+            sql1.append(")),\n" +
+                    "symptom_illness_data AS (\n" +
+                    "SELECT illness_id, SUM(relationship_strength) AS total_strength\n" +
+                    "FROM symptom_illness\n" +
+                    "WHERE symptom_id IN (SELECT symptom_id FROM selected_symptoms)\n" +
+                    "GROUP BY illness_id\n" +
+                    ")\n" +
+                    "SELECT i.illness_name, i.illness_description, i.severity, s.total_strength\n" +
+                    "FROM symptom_illness_data s\n" +
+                    "JOIN illnesses i ON s.illness_id = i.illness_id\n" +
+                    "ORDER BY s.total_strength DESC;");
+
+            List<Result> results = jdbcTemplate.query(
+                    sql1.toString(),
+                    new ResultMapper());
+            if (results.isEmpty()) {
+                return new ResponseEntity<>("There are no record against these symptoms", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(results, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+}
