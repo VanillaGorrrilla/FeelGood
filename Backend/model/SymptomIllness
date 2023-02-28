@@ -1,0 +1,29 @@
+package com.vanillagorrrilla.feelgood.model;
+
+public class SymptomIllness {
+    private int symptom_id;
+
+    private int illness_id;
+    private int relationship_strength;
+    
+	public int getSymptom_id() {
+		return symptom_id;
+	}
+	public void setSymptom_id(int symptom_id) {
+		this.symptom_id = symptom_id;
+	}
+	public int getIllness_id() {
+		return illness_id;
+	}
+	public void setIllness_id(int illness_id) {
+		this.illness_id = illness_id;
+	}
+	public int getRelationship_strength() {
+		return relationship_strength;
+	}
+	public void setRelationship_strength(int relationship_strength) {
+		this.relationship_strength = relationship_strength;
+	}
+    
+    
+}
