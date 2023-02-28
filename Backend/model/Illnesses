@@ -1,0 +1,49 @@
+package com.vanillagorrrilla.feelgood.model;
+
+public class Illnesses {
+    private int illness_id;
+    private String illness_name;
+    private String illness_description;
+    private int commonality;
+    private int severity;
+    
+    
+	@Override
+	public String toString() {
+		return "Illnesses [illness_id=" + illness_id + ", illness_name=" + illness_name + ", illness_description="
+				+ illness_description + ", commonality=" + commonality + ", severity=" + severity + "]";
+	}
+	
+	public int getIllness_id() {
+		return illness_id;
+	}
+	public void setIllness_id(int illness_id) {
+		this.illness_id = illness_id;
+	}
+	public String getIllness_name() {
+		return illness_name;
+	}
+	public void setIllness_name(String illness_name) {
+		this.illness_name = illness_name;
+	}
+	public String getIllness_description() {
+		return illness_description;
+	}
+	public void setIllness_description(String illness_description) {
+		this.illness_description = illness_description;
+	}
+	public int getCommonality() {
+		return commonality;
+	}
+	public void setCommonality(int commonality) {
+		this.commonality = commonality;
+	}
+	public int getSeverity() {
+		return severity;
+	}
+	public void setSeverity(int severity) {
+		this.severity = severity;
+	}
+    
+    
+}
